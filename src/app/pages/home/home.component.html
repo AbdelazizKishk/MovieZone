@@ -1,0 +1,345 @@
+<section class="hero flex items-center justify-center text-center">
+  <div>
+    <h1 class="text-white text-7xl font-bold mb-6">
+      Unlimited movies,<br />
+      <span class="text-6xl">TV shows, and more</span>
+    </h1>
+  </div>
+</section>
+@if (showScrollTopBtn) {
+<button
+  (click)="scrollToTop()"
+  class="fixed cursor-pointer bottom-6 right-6 bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition z-50"
+>
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+}
+
+<section class="bg-[#232D3F]">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-semibold pt-8 pb-4 ms-6 text-white">
+      Trending Now
+    </h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (movie of allTrendingMovies().slice(0,4); track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="flex justify-center mt-6 space-x-2 text-white">
+      <button
+        (click)="changePage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+        class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded"
+      >
+        Prev
+      </button>
+
+      <span class="px-4 py-1">{{ currentPage }} / {{ totalPages }}</span>
+
+      <button
+        (click)="changePage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+        class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</section>
+<section class="bg-[#232D3F]">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-semibold pt-8 pb-4 ms-6 text-white">
+      Popular Movies
+    </h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (movie of allPopularMovies().slice(0,4); track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type || "Movie" }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } @defer (on interaction) { @for (movie of allTrendingMovies().slice(4);
+      track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date }} • ⭐ {{ movie.vote_average }} ({{
+              movie.vote_count
+            }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } } @placeholder {
+      <div
+        class="Showmore bg-orange-400 mb-4 text-white py-4 mx-auto w-[70%] md:w-[20%] md:ms-4 col-span-full text-center rounded-xl"
+      >
+        <h2>Click here to Show more....</h2>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+<section class="bg-[#232D3F]">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-semibold pt-8 pb-4 ms-6 text-white">
+      Top Rated Movies
+    </h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (movie of allTopRatedMovies().slice(0,4); track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type || "Movie" }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } @defer (on interaction) { @for (movie of allTrendingMovies().slice(4);
+      track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date }} • ⭐ {{ movie.vote_average }} ({{
+              movie.vote_count
+            }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } } @placeholder {
+      <div
+        class="Showmore bg-orange-400 mb-4 text-white py-4 mx-auto w-[70%] md:w-[20%] md:ms-4 col-span-full text-center rounded-xl"
+      >
+        <h2>Click here to Show more....</h2>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+<section class="bg-[#232D3F]">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-semibold pt-8 pb-4 ms-6 text-white">
+      Upcoming Movies
+    </h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (movie of allUpcomingMovies().slice(0,4); track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type || "Movie" }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } @defer (on interaction) { @for (movie of allTrendingMovies().slice(4);
+      track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date }} • ⭐ {{ movie.vote_average }} ({{
+              movie.vote_count
+            }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } } @placeholder {
+      <div
+        class="Showmore bg-orange-400 mb-4 text-white py-4 mx-auto w-[70%] md:w-[20%] md:ms-4 col-span-full text-center rounded-xl"
+      >
+        <h2>Click here to Show more....</h2>
+      </div>
+      }
+    </div>
+  </div>
+</section>

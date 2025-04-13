@@ -1,0 +1,172 @@
+<section>
+  <div class="flex items-center justify-center p-4">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search..."
+      class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm sm:text-base"
+    />
+  </div>
+</section>
+<section>
+  <div class="container mx-auto">
+    <h2 class="text-xl md:text-3xl font-semibold pt-4 pb-4 ms-6 text-black">
+      Recommended for You
+    </h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (movie of allPopularMovies().slice(0,4) | search:searchQuery; track
+      movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type ? "ggg" : "movie" }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } @for (movie of allTopRatedMovies().slice(5,9) | search:searchQuery;
+      track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type ? "ggg" : "movie" }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } @for (movie of allNowPlayingMovies().slice(10,14) |search:searchQuery;
+      track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type ? "ggg" : "movie" }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      } @for (movie of allUpcomingMovies().slice(16,20)|search:searchQuery;
+      track movie.id) {
+      <div
+        [routerLink]="['/detalis', movie.id]"
+        class="w-[90%] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white dark:bg-gray-900 transition duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-64 object-cover"
+          [src]="posterPath + movie.poster_path"
+          [alt]="movie.title"
+        />
+        <div class="p-4 space-y-2">
+          <h2
+            class="text-xl font-semibold text-gray-900 dark:text-white truncate"
+          >
+            {{ movie.title }}
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ movie.release_date | yearOnly }} • ⭐
+            {{ movie.vote_average }} ({{ movie.vote_count }}
+            votes)
+          </p>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+            {{ movie.overview }}
+          </p>
+          <div class="mt-2">
+            <span
+              class="inline-block bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full uppercase"
+              >{{ movie.media_type ? "ggg" : "movie" }}</span
+            >
+            <span class="ml-2 text-xs text-gray-400 uppercase">{{
+              movie.original_language
+            }}</span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  @if (showScrollTopBtn) {
+  <button
+    (click)="scrollToTop()"
+    class="fixed cursor-pointer bottom-6 right-6 bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition z-50"
+  >
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+  }
+</section>

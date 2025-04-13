@@ -1,0 +1,82 @@
+<section class="hero py-8 text-white">
+  @for (tvDetalis of allTvDetalis(); track tvDetalis.id) {
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row gap-6">
+      <img
+        class="w-full md:w-1/3 h-[500px] rounded-xl shadow-xl"
+        [src]="posterPath + tvDetalis.poster_path"
+        [alt]="tvDetalis.name"
+      />
+      <div class="md:w-2/3 space-y-4">
+        <h1 class="text-3xl font-bold text-black">{{ tvDetalis.name }}</h1>
+        <div class="flex flex-wrap gap-2">
+          @for (genre of tvDetalis.genres; track genre.id) {
+          <span class="bg-orange-600 text-xs px-3 py-1 rounded-full">
+            {{ genre.name }}
+          </span>
+          }
+        </div>
+        <p class="leading-relaxed text-gray-700">{{ tvDetalis.overview }}</p>
+        <p class="mr-4 text-gray-700">
+          Rating: ⭐ {{ tvDetalis.vote_average }}
+        </p>
+        <div class="text-sm text-gray-700">
+          Language: {{ tvDetalis.original_language }}
+        </div>
+      </div>
+    </div>
+    <!-- Last Episode -->
+    <div class="mt-10">
+      <h2 class="text-2xl font-semibold mb-4">Last Episode</h2>
+      <div class="flex flex-col md:flex-row gap-4 bg-gray-800 p-4 rounded-xl">
+        <img
+          class="w-full md:w-1/4 rounded"
+          [src]="posterPath + tvDetalis.last_episode_to_air.still_path"
+          [alt]="tvDetalis.last_episode_to_air.name"
+        />
+        <div>
+          <h3 class="text-xl font-semibold">
+            {{ tvDetalis.last_episode_to_air.name }}
+          </h3>
+          <p class="text-sm text-orange-400">
+            Air Date : {{ tvDetalis.last_episode_to_air.air_date | yearOnly }}
+          </p>
+          <p class="text-sm">{{ tvDetalis.last_episode_to_air.overview }}</p>
+          <p class="text-sm mt-2">
+            Season {{ tvDetalis.last_episode_to_air.season_number }}, Episode
+            {{ tvDetalis.last_episode_to_air.episode_number }} | ⭐
+            {{ tvDetalis.last_episode_to_air.vote_average }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Seasons -->
+  <div class="container mx-auto my-6">
+    <h2 class="text-2xl font-semibold mb-4">Seasons</h2>
+    <div
+      class="w-[90%] mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4"
+    >
+      @for (season of tvDetalis.seasons; track season.id) {
+      <div class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold mb-1">{{ season.name }}</h3>
+        <p class="text-sm text-orange-400 mb-1">
+          Air Date : {{ season.air_date | yearOnly }}
+        </p>
+        <p class="text-sm text-gray-300">
+          Episodes : {{ season.episode_count }}
+        </p>
+      </div>
+      }
+    </div>
+  </div>
+  }
+</section>
+@if (showBtnTop) {
+<button
+  (click)="scrollToTop()"
+  class="fixed cursor-pointer bottom-6 right-6 bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition z-50"
+>
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+}
